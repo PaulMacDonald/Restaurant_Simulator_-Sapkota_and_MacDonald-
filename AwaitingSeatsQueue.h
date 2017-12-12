@@ -15,7 +15,14 @@ private:
 public:
 
 	// CONSTRUCTOR
-	AwaitingSeatsQueue() : totalWaitTime(0), numServed(0) {}
+	AwaitingSeatsQueue() : totalWaitTime(0), numServed(0)
+	{
+		Party* p1 = new Party(0);
+		Party* p2 = new Party(0);
+		Party* p3 = new Party(0);
+		Party* p4 = new Party(0);
+		Party* p5 = new Party(0);
+	}
 
 	void setArrivalRate(double theRate)
 	{

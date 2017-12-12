@@ -7,14 +7,18 @@ class Chef
 {
 private:
 	Table* myTable;
-	bool stillCooking;
+	bool stillCooking = false;
 	int startedCooking;
 	int cookingTime;
 
 public:
 
 	// CONSTRUCTOR
-	Chef() {}
+	Chef() 
+	{
+		myTable = new Table();
+		myTable->setIsEmpty(true);
+	}
 
 	// GETTERS AND SETTERS
 	Table* getTable() { return myTable; }
@@ -28,34 +32,49 @@ public:
 
 	void update(int clock, Table* smokingSection[], Table* nonSmokingSection[])
 	{
-		if (clock - startedCooking >= cookingTime) // If he's cooked it long enough (it's ready)...
+		if (stillCooking)
 		{
-			myTable->getParty()->servedTime = clock; // ... Dinner is served!
-			stillCooking = false; // and he's ready to take on another table.
 
-			// If the last table was a smoker table, look for a nonsmoker table to serve next (for variety)
-			if (myTable->getParty()->isSmoker)
+			if (clock - startedCooking >= cookingTime) // If he's cooked it long enough (it's ready)...
 			{
-				for (int i = 0; i < 7; i++)
-				{
-					if (!nonSmokingSection[i]->getHasBeenServed())
-					{
-						this->myTable = nonSmokingSection[i];
-						startedCooking = clock;
-					}
-				}
+				myTable->getParty()->servedTime = clock; // ... Dinner is served!
+				stillCooking = false; // and he's ready to take on another table.
 			}
+		}
 
-			// If the last table was a nonsmoker table, look for a smoker table to serve next (for variety)
-			if (!myTable->getParty()->isSmoker)
+		else if (!stillCooking)
+		{
+			// Look for a new table in the nonsmoking section
+			for (int i = 0; i < 7; i++)
 			{
-				for (int i = 0; i < 3; i++)
+				if (!nonSmokingSection[i]->getHasBeenServed())
 				{
-					if (!smokingSection[i]->getHasBeenServed())
-						this->myTable = smokingSection[i];
+					this->myTable = nonSmokingSection[i];
+					startedCooking = clock;
+					stillCooking = true;
+					break;
 				}
 			}
 		}
+
+		if (!stillCooking)
+		{
+
+			// Look for a new table in the smoking section
+			for (int i = 0; i < 3; i++)
+			{
+				if (!smokingSection[i]->getHasBeenServed())
+				{
+					this->myTable = smokingSection[i];
+					startedCooking = clock;
+					stillCooking = true;
+					break;
+				}
+			}
+		}
+
+
+
 	}
 
 	// OPERATOR OVERLOADS FOR ORGANIZING HEAP

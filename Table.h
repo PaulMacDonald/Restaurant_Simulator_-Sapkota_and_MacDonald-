@@ -11,7 +11,7 @@ class Table
 protected:
 	Party* theParty;
 	bool isEmpty;
-	bool hasBeenServed;
+	bool hasBeenServed = false;
 	Order* ourOrder;
 	int eatTime;
 
@@ -20,7 +20,8 @@ public:
 	//CONSTRUCTOR
 	Table()
 	{
-		isEmpty = true;
+		theParty = new Party(0);
+		isEmpty = false;
 		hasBeenServed = false;
 	}
 
@@ -34,7 +35,11 @@ public:
 
 	Party* getParty() { return theParty; }
 
-	void setParty(Party* newParty) { theParty = newParty; }
+	void setParty(Party* newParty)
+	{ 
+		theParty = newParty; 
+		hasBeenServed = false;
+	}
 
 	bool getHasBeenServed() { return hasBeenServed; }
 
