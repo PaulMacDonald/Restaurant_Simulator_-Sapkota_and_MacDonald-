@@ -55,7 +55,7 @@ public:
 
 	void pickRandomEatingTime()
 	{
-		srand((unsigned)time(0)); // Random seed
+		srand(time(0)); // Random seed
 		int randomNumberForChoosingTime = rand() % 10;
 
 		// 10% CHANCE FOR 20 MINUTES EATING TIME

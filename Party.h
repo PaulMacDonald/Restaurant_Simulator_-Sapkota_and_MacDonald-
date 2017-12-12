@@ -8,10 +8,10 @@ struct Party
 {
 	// CONSTRUCTOR
 	Party(int clock) :
-		arrivalTime(clock), seatedTime(-1), servedTime(-1)
+		arrivalTime(clock)
 	{
 
-		srand((unsigned)time(0)); // Random seed
+		srand(time(0)); // Random seed
 
 		numOfMembers = rand() % 10 + 1;
 

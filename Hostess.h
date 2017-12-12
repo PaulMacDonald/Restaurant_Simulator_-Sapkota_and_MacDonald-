@@ -3,6 +3,7 @@
 
 #include"AwaitingSeatsQueue.h"
 #include "Party.h"
+#include "Table.h"
 
 class Hostess
 {
@@ -15,10 +16,8 @@ public:
 	Hostess()
 	{
 		// Let's start with one party!
-		Party* firstArrival = new Party(0);
-		Party* secondArrival = new Party(0);
+		Party* firstArrival = new Party(1);
 		myQueue->theQueue.push(firstArrival);
-		myQueue->theQueue.push(secondArrival);
 	}
 	void setQueue(AwaitingSeatsQueue* theQueue) { myQueue = theQueue; }
 

@@ -14,7 +14,7 @@ public:
 	// CONSTRUCTOR
 	Order()
 	{
-		srand((unsigned)time(0)); // Random seed
+		srand(time(0)); // Random seed
 		int randomDessertNumber = rand() % 2;
 
 		// 50% CHANCE OF HAVING DESSERT OR NOT
